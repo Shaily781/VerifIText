@@ -1,9 +1,21 @@
+import subprocess
+import sys
+import spacy
+
+# Ensure the spaCy model is downloaded
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
+
+
+
 import streamlit as st
 import pickle
 import pandas as pd
 from textstat import flesch_reading_ease
 import string
-import spacy
 
 # Load spacy model
 nlp = spacy.load("en_core_web_sm")
