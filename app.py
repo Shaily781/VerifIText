@@ -1,52 +1,43 @@
-import spacy
-import subprocess
-import sys
-
-# Load the spaCy model, download it if not available
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"], check=True)
-    nlp = spacy.load("en_core_web_sm")
-
-
 import streamlit as st
 import pickle
 import pandas as pd
 from textstat import flesch_reading_ease
 import string
+import spacy
+import subprocess
+import sys
 
-# Load spacy model
-nlp = spacy.load("en_core_web_sm")
+# ✅ Load the spaCy model (auto-download if missing)
+def load_spacy_model():
+    try:
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"], check=True)
+        return spacy.load("en_core_web_sm")
 
-# Load saved model and feature columns
+nlp = load_spacy_model()
+
+# ✅ Load the model and feature columns
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
 with open("features_columns.pkl", "rb") as f:
     feature_columns = pickle.load(f)
 
-# Set page config
+# ✅ Streamlit page config and UI
 st.set_page_config(page_title="VerifIText – AI vs Human Detector", page_icon="🧠")
 
-# Header Section
 st.markdown("<h1 style='text-align: center;'>🧠 VerifIText</h1>", unsafe_allow_html=True)
 st.markdown("<h4 style='text-align: center; color: gray;'>AI vs Human Content Classifier</h4>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; font-style: italic; color: #6c757d;'>I Detect. I Defend. I Deliver Clarity.</p>", unsafe_allow_html=True)
-
 st.markdown("---")
 
-
-# Text Input
+# ✅ Input
 st.subheader("🔍 Paste Your Text Below")
-
 user_input = st.text_area("Enter text here:", height=200, placeholder="Type or paste your content...")
-
 st.markdown("")
 
-
-# Feature Extraction
-
+# ✅ Feature extraction
 def extract_features(text):
     doc = nlp(text)
     words = [token.text for token in doc if token.is_alpha]
@@ -64,9 +55,8 @@ def extract_features(text):
         "readability_score": readability_score
     }
 
-#Prediction Button
+# ✅ Prediction button and result
 col1, col2, col3 = st.columns([1, 2, 1])
-
 with col2:
     if st.button("🔎 Classify Text", use_container_width=True):
         if user_input.strip() == "":
@@ -82,10 +72,9 @@ with col2:
             st.markdown("")
 
             with st.expander("🧬 View Extracted Features", expanded=True):
-                feature_df = pd.DataFrame([features])
-                st.dataframe(feature_df.style.format(precision=3),use_container_width=True)
+                st.dataframe(pd.DataFrame([features]).style.format(precision=3), use_container_width=True)
 
-# Footer
+# ✅ Footer
 st.markdown("---")
 st.markdown("""
 <p style='text-align: center; font-size: 13px; color: gray;'>
