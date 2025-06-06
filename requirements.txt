@@ -1,6 +1,6 @@
-streamlit
+streamlit==1.45.1
 pandas
 scikit-learn
 textstat
-spacy
+spacy==3.8.7
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1.tar.gz
