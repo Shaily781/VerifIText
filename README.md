@@ -34,3 +34,22 @@ Whether you’re a writer wanting to check your content’s originality, an edit
 - Colab file for model training
 
 ---
+## Model Training
+
+**Readability Score**
+![Screenshot 2025-06-06 214026](https://github.com/user-attachments/assets/e13db20a-2fa2-45f3-afec-40cb78af7ba0)
+
+**Lexical Diversity Comparison**
+![Screenshot 2025-06-06 214059](https://github.com/user-attachments/assets/d230c157-46c3-49b9-8381-48339eb00d45)
+
+**Confusion Matrix**
+![Screenshot 2025-06-06 214018](https://github.com/user-attachments/assets/fc61eae1-88e5-4b4f-a3bb-ff0cddad80aa)
+
+**Feature Importance in Classification**
+![Screenshot 2025-06-06 214011](https://github.com/user-attachments/assets/4d4ee2f3-2775-4a4f-9c7d-4b7a28a8c957)
+
+
+
+
+
+
